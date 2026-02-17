@@ -1,0 +1,50 @@
+index.js
+const { Client, GatewayIntentBits, ButtonBuilder, ButtonStyle, ActionRowBuilder, Events } = require('discord.js');
+
+const mariaId = "PASTE_YOUR_USER_ID";
+const bfId = "PASTE_HIS_USER_ID";
+
+const client = new Client({
+  intents: [GatewayIntentBits.Guilds]
+});
+
+client.once('ready', () => {
+  console.log(`Logged in as ${client.user.tag}`);
+});
+
+client.on(Events.InteractionCreate, async interaction => {
+
+  if (interaction.isChatInputCommand()) {
+    if (interaction.commandName === 'setup') {
+
+      const button = new ButtonBuilder()
+        .setCustomId('smooch')
+        .setLabel('💋 Send Smooch')
+        .setStyle(ButtonStyle.Primary);
+
+      const row = new ActionRowBuilder().addComponents(button);
+
+      await interaction.reply({
+        content: "Click below to send a smooch 💕",
+        components: [row]
+      });
+    }
+  }
+
+  if (interaction.isButton()) {
+    if (interaction.customId === 'smooch') {
+
+      if (interaction.user.id === mariaId) {
+        await interaction.reply(`💋 <@${mariaId}> gave <@${bfId}> a smooch!`);
+      } 
+      else if (interaction.user.id === bfId) {
+        await interaction.reply(`💋 <@${bfId}> gave <@${mariaId}> a smooch!`);
+      }
+      else {
+        await interaction.reply({ content: "This button isn't for you 👀", ephemeral: true });
+      }
+    }
+  }
+});
+
+client.login(process.env.TOKEN);
