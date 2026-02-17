@@ -1,8 +1,8 @@
 index.js
 const { Client, GatewayIntentBits, ButtonBuilder, ButtonStyle, ActionRowBuilder, Events } = require('discord.js');
 
-const mariaId = "PASTE_YOUR_USER_ID";
-const bfId = "PASTE_HIS_USER_ID";
+const mariaId = "998980918146519060";
+const bfId = "982511917753057371";
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds]
